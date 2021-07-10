@@ -6,15 +6,31 @@
         <title>타자연습게임</title>
     </head>
         
-    <body onload="loaded()">
+    <!--<body onload="loaded()">-->
+    <body>
         <div id="window">
-            <canvas id="canvas" width="1020px"
-            height="680px" style="border: 2px solid black;"></canvas>
+
+            <section id="main">
+            
+                <div id="button">
+                    <img src="images/newGame_off.png" id="newGame" onmouseover="Hover()" onmouseleave="Leave()" onmousedown="Click()">
+                </div>
+
+            </section>
+
+            <section id="game">
+                <div>
+                    <canvas id="canvas" width="1020px" height="680px"></canvas>
+                </div>
+                
+            </section>
+
         </div>
         <div id="textbox">
             <input id="input" onchange="change()">
         </div>
 
         <script type="text/javascript" src="script/script.js"></script>
+        <script type="module" src="script/wordsList.js"></script>
     </body>
 </html>

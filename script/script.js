@@ -1,3 +1,5 @@
+var func = require('./wordsList.js'); // 같은 디렉토리에 있다고 가정
+
 // GUI 관련 변수 선언
 var canvas;
 var context;
@@ -12,6 +14,31 @@ class Word {
         this.y = y;
         
         this.text = words_1[Math.floor(Math.random() * words_1.length)];
+
+        this.img= new Image();
+        this.img.src="images/obj_0.png";
+
+        this.imgNumber = 0;
+
+        this.animationTool = 0;
+    }
+
+    animation() {
+        if (this.animationTool >= 1) {
+            this.img.src = "images/obj_" + this.imgNumber + ".png";
+            if (this.imgNumber < 3) {
+                this.imgNumber += 1;
+            }
+            else if (this.imgNumber == 3) {
+                this.imgNumber = 0;
+            }
+
+            this.animationTool = 0;
+
+        }
+        
+        
+        
     }
 }
 
@@ -28,7 +55,15 @@ var score = 0;
 
 // 배경 이미지 생성
 var img= new Image();
-img.src="images/bg.jpg";
+//img.src="images/bg.jpg";
+
+var img2 = new Image();
+img.src = "images/background1.png";
+img2.src = "images/background2.png";
+ix = 0;
+iy = 0;
+i2x = 1020;
+i2y = 0;
 
 // html파일이 실행될 때 처음 로딩되는 함수
 function loaded(){
@@ -61,15 +96,39 @@ function moveAll(){
         }
     }
 
+    for (var i=0; i<classList.length; i++) {
+        classList[i].animationTool += 0.1;
+    }
+
+    for (var i=0; i<classList.length; i++) {
+        classList[i].animation();
+    }
+
+    ix--;
+    i2x--;
+    if (ix<=-740) {
+        ix = 1020;
+    }
+    if (i2x<=-740) {
+        i2x = 1020;
+    }
+
+
 }
 
 // 게임 요소들을 캔버스에 그리는 함수
 function drawAll(){
-    context.drawImage(img,0,0);
+    context.clearRect(0, 0, 1020, 680);
+    context.drawImage(img,ix,iy);
+    context.drawImage(img2,i2x,i2y);
     context.font = "30px 바탕체";
     
     for (var i=0; i<classList.length; i++) {
         context.fillText(classList[i].text, classList[i].x, classList[i].y);
+    }
+
+    for (var i=0; i<classList.length; i++) {
+        context.drawImage(classList[i].img, classList[i].x, classList[i].y, 100, 100);
     }
 
     context.fillText('점수: ' + score, 880, 650);
@@ -79,15 +138,52 @@ function drawAll(){
 function change() {
     var word = document.getElementById("input");
 
+    var max = 0; // 단어들의 x좌표값중 제일 최댓값을 저장하는 변수
+    var target;  // 제일 큰 x좌표값을 가진 단어 자체를 저장하는 변수
+
     for (var i=0; i<classList.length; i++) {
         if (word.value == classList[i].text) {
-            classList[i].x = -100;
-            classList[i].y = Math.floor(Math.random() * 500) + 30;
-            score += 10;
-            classList[i].text = words_1[Math.floor(Math.random() * words_1.length)];
-            break;
+            
+            if (classList[i].x >= max) {
+                max = classList[i].x;
+                target = classList[i];
+            }
+            
         }
     }
 
+    target.x = -100;
+    target.y = Math.floor(Math.random() * 500) + 30;
+    score += 10;
+    //target.text = words_1[Math.floor(Math.random() * words_1.length)];
+    target.text = func.words_2[Math.floor(Math.random() * func.words_2.length)];
+
     word.value = ''; // 텍스트 입력창은 다시 빈 상태로 돌아감
+}
+
+
+
+
+
+
+
+
+function Hover() {
+    var x = document.getElementById("newGame");
+    x.src = "images/newGame_on.png";
+}
+
+function Leave() {
+    var x = document.getElementById("newGame");
+    x.src = "images/newGame_off.png";
+}
+
+function Click() {
+    var x = document.getElementById("main");
+    x.style.display = "none";
+    var y = document.getElementById("game");
+    y.style.display = "block";
+    var z = document.getElementById("textbox");
+    z.style.display = "block";
+    loaded();
 }
