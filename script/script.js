@@ -1,4 +1,4 @@
-var func = require('./wordsList.js'); // 같은 디렉토리에 있다고 가정
+import { words_2 } from './wordsList.js';
 
 // GUI 관련 변수 선언
 var canvas;

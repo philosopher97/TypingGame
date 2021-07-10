@@ -1,8 +1,5 @@
-var words_2 = ["금강산", "아홉시", "목욕", "수학", "만화", "복습", "애니메이션"];
+export var words_2 = ["금강산", "아홉시", "목욕", "수학", "만화", "복습", "애니메이션"];
 
-module.exports = {
-    words_2
-};
 
 /*function Hover() {
     var x = document.getElementById("newGame");
