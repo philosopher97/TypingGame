@@ -1,5 +1,3 @@
-import { words_2 } from './wordsList.js';
-
 // GUI 관련 변수 선언
 var canvas;
 var context;
@@ -34,11 +32,7 @@ class Word {
             }
 
             this.animationTool = 0;
-
         }
-        
-        
-        
     }
 }
 
@@ -112,8 +106,6 @@ function moveAll(){
     if (i2x<=-740) {
         i2x = 1020;
     }
-
-
 }
 
 // 게임 요소들을 캔버스에 그리는 함수
@@ -155,18 +147,10 @@ function change() {
     target.x = -100;
     target.y = Math.floor(Math.random() * 500) + 30;
     score += 10;
-    //target.text = words_1[Math.floor(Math.random() * words_1.length)];
-    target.text = func.words_2[Math.floor(Math.random() * func.words_2.length)];
+    target.text = words_1[Math.floor(Math.random() * words_1.length)];
 
     word.value = ''; // 텍스트 입력창은 다시 빈 상태로 돌아감
 }
-
-
-
-
-
-
-
 
 function Hover() {
     var x = document.getElementById("newGame");
